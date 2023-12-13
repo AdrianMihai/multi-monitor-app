@@ -26,15 +26,7 @@ export abstract class BaseStore<U> {
   setupBroadcastChain(storeKey: string) {
     this.broadcastChain = new StoreBroadcastChain(storeKey);
     this.broadcastChain.onRemoteUpdate = this.handleRemoteUpdate;
-    this.broadcastChain.onDataRequest = () => this.tryBroadcastCurrentData();
-  }
-
-  getBroadcastChain(storeKey?: string) {
-    if (!this.broadcastChain) {
-      this.setupBroadcastChain(storeKey!!);
-    }
-
-    return this.broadcastChain;
+    this.broadcastChain.onDataRequest = () => this.broadcastCurrentData();
   }
 
   update(updateFn: (data: U) => void) {
@@ -43,12 +35,12 @@ export abstract class BaseStore<U> {
     updateFn(this.data);
 
     this.notificationsSubject.next(this.data);
-    this.tryBroadcastCurrentData();
+    this.broadcastCurrentData();
   }
 
   canBroadcastUpdates = () => !!this.broadcastChain;
 
-  tryBroadcastCurrentData = () => {
+  broadcastCurrentData = () => {
     if (!this.canBroadcastUpdates()) return;
 
     this.broadcastChain.broadcastStoreUpdate(this.getBroadcastData());
@@ -63,7 +55,11 @@ export abstract class BaseStore<U> {
   }
 
   startBroadcastTo(broadcastWrapper: BroadcastChannelWrapper, storeKey: string) {
-    this.getBroadcastChain(storeKey).addToChain(broadcastWrapper);
+    if (!this.broadcastChain) {
+      this.setupBroadcastChain(storeKey);
+    }
+
+    this.broadcastChain.addToChain(broadcastWrapper);
   }
 
   handleRemoteUpdate = (storeData) => {
