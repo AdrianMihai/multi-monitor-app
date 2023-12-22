@@ -40,7 +40,6 @@ export class StoreBroadcastChain {
     });
 
     if (isDetachedWindow()) {
-      console.log('data requestsed for: ', this.storeKey);
       broadcastWrapper.sendCommand({
         name: BroadcastCommandName.REQUEST_STORE_SYNC,
         args: {
@@ -51,7 +50,6 @@ export class StoreBroadcastChain {
       broadcastWrapper.subscribe(BroadcastCommandName.REQUEST_STORE_SYNC, (args) => {
         if (!args || args?.storeKey !== this.storeKey) return;
 
-        console.log('requested data provided: ', this.storeKey);
         this.requestedDataHandler();
       });
     }

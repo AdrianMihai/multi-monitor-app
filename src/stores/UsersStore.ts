@@ -1,11 +1,19 @@
+import BroadcastWrappersFactory from '../broadcast/BroadcastWrappersFactory';
 import { User } from '../models/User';
 import { BaseStore } from './BaseStore';
+import { getStoreBroadcastingKey } from './broadcast/StoreBroadcastingKeysPool';
 
 export type UsersData = {
   users: User[];
 };
 
 class UsersStore extends BaseStore<UsersData> {
+  constructor() {
+    super();
+
+    this.startBroadcastTo(BroadcastWrappersFactory.detachedPanelBroadcastWrapper, getStoreBroadcastingKey(this));
+  }
+
   initializeData(storeData) {
     storeData.users = [];
   }

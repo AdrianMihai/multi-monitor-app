@@ -10,17 +10,22 @@ import { Conditional } from '../common/Conditional';
 import { NewWindow } from '../common/window/NewWindow';
 import { SimpleButton } from '../common/button/SimpleButton';
 import { useDetachedSidePanelHandler } from './UseDetachedSidePanelHandler';
+import { DetachedWindowNames } from '../../broadcast/Domain';
 
-const DETACHED_WINDOW_NAME = 'detached_panel';
+const onDetachedWindowTriggered = (ev) => {
+  ev.nativeEvent.stopImmediatePropagation();
+
+  PanelsStore.detachPanel();
+};
 
 export const SidePanel = () => {
-  const [{ activePanel, isDetached }] = useStoreObserver<PanelsData>(PanelsStore);
-  const { onOpen, computeDetachedWindowFeatures, onClose } = useDetachedSidePanelHandler();
+  const [panelsData] = useStoreObserver<PanelsData>(PanelsStore);
+  const { onOpen, detachedPanelWindowFeatures, onClose } = useDetachedSidePanelHandler(panelsData);
+  const { activePanel, isDetached } = panelsData;
 
-  console.log(isDetached);
   return (
     <>
-      <Conditional when={!isDetached || window.name === DETACHED_WINDOW_NAME}>
+      <Conditional when={!isDetached || window.name === DetachedWindowNames.detachedPanel}>
         <Panel
           activePanel={activePanel}
           onPanelChange={PanelsStore.changeActivePanel}
@@ -28,7 +33,7 @@ export const SidePanel = () => {
             <PanelsNavbar
               endDecoration={
                 <Conditional when={!isDetached}>
-                  <SimpleButton onClick={onOpen}>
+                  <SimpleButton onClick={onDetachedWindowTriggered}>
                     <WindowRestoreSolid />
                   </SimpleButton>
                 </Conditional>
@@ -41,11 +46,12 @@ export const SidePanel = () => {
           <UsersQueuePanel />
         </Panel>
       </Conditional>
-      <Conditional when={isDetached && window.name !== DETACHED_WINDOW_NAME}>
+      <Conditional when={isDetached && window.name !== DetachedWindowNames.detachedPanel}>
         <NewWindow
-          windowName={DETACHED_WINDOW_NAME}
+          windowName={DetachedWindowNames.detachedPanel}
           documentPath={detachedPanelPath}
-          windowFeatures={computeDetachedWindowFeatures()}
+          windowFeatures={detachedPanelWindowFeatures}
+          onOpen={onOpen}
           onClose={onClose}
         />
       </Conditional>

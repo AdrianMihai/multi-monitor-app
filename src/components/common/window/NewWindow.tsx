@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import { getInstanceId } from '../../../broadcast/Domain';
 
-export const NewWindow = ({ documentPath, windowName, windowFeatures, onClose }) => {
+export const NewWindow = ({ documentPath, windowName, windowFeatures, onClose, onOpen }) => {
   const [windowObj, setWindowObj] = useState<WindowProxy | null>(null);
 
   useEffect(() => {
@@ -14,8 +15,12 @@ export const NewWindow = ({ documentPath, windowName, windowFeatures, onClose })
       return;
     }
 
-    newWindow.addEventListener('beforeunload', onClose);
+    newWindow.INSTANCE_ID = getInstanceId();
+    newWindow.addEventListener('beforeunload', () => {
+      onClose(newWindow);
+    });
     setWindowObj(newWindow);
+    onOpen(newWindow);
   }, []);
 
   return null;

@@ -7,7 +7,7 @@ export abstract class BaseStore<U> {
   private notificationsSubject: Subject<U>;
   private broadcastChain: StoreBroadcastChain;
 
-  constructor() {
+  constructor(private readonly storeKey = '') {
     this.notificationsSubject = new Subject();
     this.data = {} as U;
     this.initializeData(this.data);

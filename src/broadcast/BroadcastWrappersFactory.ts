@@ -1,8 +1,9 @@
 import { BroadcastChannelWrapper } from './BroadcastChannelWrapper';
+import { getInstanceId } from './Domain';
 
 class BroadcastWrappersFactory {
   private _detachedPanelBroadcastWrapper: BroadcastChannelWrapper;
-  private broadcastUniqueKey = new Number(Math.random() * 100000).toString();
+  private broadcastUniqueKey = getInstanceId();
 
   get detachedPanelBroadcastWrapper() {
     if (!this._detachedPanelBroadcastWrapper) {

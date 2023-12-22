@@ -13,3 +13,17 @@ export enum DetachedWindowNames {
 }
 
 export const isDetachedWindow = () => (Object.values(DetachedWindowNames) as string[]).includes(window.name);
+
+const INSTANCE_ID = new Number(Math.floor(Math.random() * 100000)).toString();
+
+export const getInstanceId = () => {
+  if (isDetachedWindow()) return window.INSTANCE_ID;
+
+  return INSTANCE_ID;
+};
+
+declare global {
+  interface Window {
+    INSTANCE_ID: string;
+  }
+}
