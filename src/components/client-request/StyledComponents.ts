@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { SimpleButton } from '../common/button/SimpleButton';
 
 export const StyledPendingRequestContainer = styled.div`
   display: flex;
@@ -14,11 +15,11 @@ export const StyledHeaderElementsContainer = styled.div`
 
 export const StyledRequestHeaderSeparator = styled.div`
   position: absolute;
-  bottom: 1px;
+  bottom: 2px;
   left: 0;
-  height: 1px;
+  height: 2px;
   width: 40%;
-  background: violet;
+  background: #4a5f82;
 `;
 
 export const StyledUsernameText = styled.h3`
@@ -29,4 +30,10 @@ export const StyledRequestTimeText = styled.em`
   padding: 5px 0;
   margin: 0;
   color: #6a6363;
+`;
+
+export const StyledReplyButton = styled(SimpleButton)`
+  flex-direction: row;
+  justify-content: space-between;
+  min-width: 70px;
 `;

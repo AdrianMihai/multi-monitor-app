@@ -14,6 +14,7 @@ export const StyledPanelElementsContainer = styled.div`
   display: flex;
   flex-direction: row;
   height: 100%;
+  max-width: 35%;
   border-top: 2px solid gray;
 `;
 

@@ -11,6 +11,8 @@ import { NewWindow } from '../common/window/NewWindow';
 import { SimpleButton } from '../common/button/SimpleButton';
 import { useDetachedSidePanelHandler } from './UseDetachedSidePanelHandler';
 import { DetachedWindowNames } from '../../broadcast/Domain';
+import { ProcessedRequestsNavigationItem } from '../processed-requests/ProcessedRequestsNavigationItem';
+import { ProcessedRequestsPanel } from '../processed-requests/ProcessedRequestsPanel';
 
 const onDetachedWindowTriggered = (ev) => {
   ev.nativeEvent.stopImmediatePropagation();
@@ -40,10 +42,12 @@ export const SidePanel = () => {
               }
             >
               <UsersQueueNavigationItem />
+              <ProcessedRequestsNavigationItem />
             </PanelsNavbar>
           }
         >
           <UsersQueuePanel />
+          <ProcessedRequestsPanel />
         </Panel>
       </Conditional>
       <Conditional when={isDetached && window.name !== DetachedWindowNames.detachedPanel}>

@@ -1,6 +1,10 @@
 import React from 'react';
 import { StyledSimpleButton } from './StyledComponents';
 
-export const SimpleButton = ({ children, onClick }) => {
-  return <StyledSimpleButton onClick={onClick}>{children}</StyledSimpleButton>;
+export const SimpleButton = ({ className = '', disabled = false, children, onClick }) => {
+  return (
+    <StyledSimpleButton className={className} disabled={disabled} onClick={onClick}>
+      {children}
+    </StyledSimpleButton>
+  );
 };

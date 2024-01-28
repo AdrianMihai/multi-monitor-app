@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const StyledSimpleButton = styled.button`
   display: inline-flex;
@@ -11,4 +11,9 @@ export const StyledSimpleButton = styled.button`
   border: 1px solid #d5d6d9;
   background: transparent;
   cursor: pointer;
-`;
+
+  &[disabled] {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+`

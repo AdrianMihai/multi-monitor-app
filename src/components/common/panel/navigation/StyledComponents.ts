@@ -15,7 +15,7 @@ export const StyledNavContainer = styled.nav`
   justify-content: space-between;
   align-items: center;
   height: 100%;
-  min-width: 40px;
+  min-width: 43px;
   box-sizing: border-box;
   padding: 7px;
   border-left: 2px solid gray;

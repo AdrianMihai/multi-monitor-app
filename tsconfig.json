@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "reactNamespace": "React",
+    "declaration": true,
+    "declarationDir": "./types",
+    "esModuleInterop": true
+  }
+}

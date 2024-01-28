@@ -13,6 +13,8 @@ class RequestsStore extends BaseStore<ClientRequestsData> {
   get requests() {
     return this.data.requests;
   }
+
+  findById = (clientRequestId: number) => this.data.requests.find((data) => data.id === clientRequestId);
 }
 
 export default new RequestsStore();
