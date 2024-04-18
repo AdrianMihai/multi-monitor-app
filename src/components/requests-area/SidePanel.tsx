@@ -13,6 +13,7 @@ import { useDetachedSidePanelHandler } from './UseDetachedSidePanelHandler';
 import { DetachedWindowNames } from '../../broadcast/Domain';
 import { ProcessedRequestsNavigationItem } from '../processed-requests/ProcessedRequestsNavigationItem';
 import { ProcessedRequestsPanel } from '../processed-requests/ProcessedRequestsPanel';
+import { StyledPanel } from './StyledComponents';
 
 const onDetachedWindowTriggered = (ev) => {
   ev.nativeEvent.stopImmediatePropagation();
@@ -28,9 +29,10 @@ export const SidePanel = () => {
   return (
     <>
       <Conditional when={!isDetached || window.name === DetachedWindowNames.detachedPanel}>
-        <Panel
+        <StyledPanel
           activePanel={activePanel}
           onPanelChange={PanelsStore.changeActivePanel}
+          isDetached={isDetached}
           navbar={
             <PanelsNavbar
               endDecoration={
@@ -48,7 +50,7 @@ export const SidePanel = () => {
         >
           <UsersQueuePanel />
           <ProcessedRequestsPanel />
-        </Panel>
+        </StyledPanel>
       </Conditional>
       <Conditional when={isDetached && window.name !== DetachedWindowNames.detachedPanel}>
         <NewWindow

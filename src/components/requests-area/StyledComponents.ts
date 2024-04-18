@@ -1,4 +1,10 @@
 import { styled } from 'styled-components';
+import Panel, { PanelProps } from '../common/panel/Panel';
+
+export const StyledPanel = styled(Panel)<PanelProps & { isDetached: boolean }>`
+  width: ${({ isDetached }) => (isDetached ? '100%' : 'initial')};
+  max-width: ${({ isDetached }) => (isDetached ? 'initial' : '35%')};
+`;
 
 export const StyledProcessingAreaContainer = styled.div`
   display: flex;

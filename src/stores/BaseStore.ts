@@ -1,11 +1,13 @@
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { StoreBroadcastChain } from './broadcast/StoreBroadcastChain';
 import { BroadcastChannelWrapper } from '../broadcast/BroadcastChannelWrapper';
+import { isDetachedWindow } from '../broadcast/Domain';
 
 export abstract class BaseStore<U> {
   protected data: U;
   private notificationsSubject: Subject<U>;
   private broadcastChain: StoreBroadcastChain;
+  public dataSyncObservable = new BehaviorSubject<boolean>(!isDetachedWindow() ? true : false);
 
   constructor(private readonly storeKey = '') {
     this.notificationsSubject = new Subject();
@@ -19,6 +21,10 @@ export abstract class BaseStore<U> {
     return this.data;
   }
 
+  get isDataSynced() {
+    return this.dataSyncObservable.value;
+  }
+
   subscribe(fn: (value: U) => void) {
     return this.notificationsSubject.subscribe(fn);
   }
@@ -30,6 +36,8 @@ export abstract class BaseStore<U> {
   }
 
   update(updateFn: (data: U) => void) {
+    if (!this.isDataSynced) return;
+
     const prevData = this.data;
     this.data = { ...prevData };
     updateFn(this.data);
@@ -63,6 +71,10 @@ export abstract class BaseStore<U> {
   }
 
   handleRemoteUpdate = (storeData) => {
+    if (!this.isDataSynced) {
+      this.dataSyncObservable.next(true);
+    }
+
     this.mergeBroadcastData(storeData);
     this.notificationsSubject.next(this.data);
   };

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { SimpleButton } from '../common/button/SimpleButton';
 
 export const StyledWaitingUsersList = styled.ul`
   display: flex;
@@ -15,7 +16,15 @@ export const StyledQueuedUserItem = styled.li`
 `;
 
 export const StyledUserCard = styled.div`
+  display: flex;
   padding: 10px;
+`;
+
+export const StyledAddUserButton = styled(SimpleButton)`
+  justify-content: center;
+  width: 30px;
+  padding: 4px;
+  margin-right: 6px;
 `;
 
 export const StyledUsernameText = styled.h3`

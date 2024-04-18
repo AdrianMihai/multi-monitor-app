@@ -17,6 +17,12 @@ class UsersQueueStore extends BaseStore<UsersQueueData> {
   initializeData(store) {
     store.queue = [];
   }
+
+  removeForUser = (userId: number) => {
+    this.update((draft) => {
+      draft.queue = draft.queue.filter((entry) => entry.userId !== userId);
+    });
+  };
 }
 
 export default new UsersQueueStore();

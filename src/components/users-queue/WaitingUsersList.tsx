@@ -2,6 +2,7 @@ import React from 'react';
 import { useStoreObserver } from '../common/UseStoreObserver';
 import UsersQueueStore, { UsersQueueData } from '../../stores/UsersQueueStore';
 import {
+  StyledAddUserButton,
   StyledQueuedUserItem,
   StyledUserCard,
   StyledUserQueueTime,
@@ -9,6 +10,8 @@ import {
   StyledWaitingUsersList,
 } from './StyledComponents';
 import UsersStore from '../../stores/UsersStore';
+import AddPerson from '../../../assets/add-person.svg';
+import RequestsStore from '../../stores/RequestsStore';
 
 export const WaitingUsersList = () => {
   const [queueData] = useStoreObserver<UsersQueueData>(UsersQueueStore);
@@ -18,8 +21,18 @@ export const WaitingUsersList = () => {
       {queueData.queue.map((entry) => (
         <StyledQueuedUserItem key={`queued-user-${entry.id}`}>
           <StyledUserCard>
-            <StyledUsernameText>{UsersStore.findById(entry.userId)?.username}</StyledUsernameText>
-            <StyledUserQueueTime>{`From: ${new Date(entry.timestamp).toLocaleString()}`}</StyledUserQueueTime>
+            <StyledAddUserButton
+              onClick={() => {
+                RequestsStore.addFromUser(entry.userId);
+                UsersQueueStore.removeForUser(entry.userId);
+              }}
+            >
+              <AddPerson />
+            </StyledAddUserButton>
+            <div>
+              <StyledUsernameText>{UsersStore.findById(entry.userId)?.username}</StyledUsernameText>
+              <StyledUserQueueTime>{`From: ${new Date(entry.timestamp).toLocaleString()}`}</StyledUserQueueTime>
+            </div>
           </StyledUserCard>
         </StyledQueuedUserItem>
       ))}

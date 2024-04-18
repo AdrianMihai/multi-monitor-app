@@ -8,21 +8,21 @@ import { getRandomString } from '../utils/StringUtils';
 import { generateRandomRecentDate } from '../utils/DateUtils';
 import UsersQueueStore from '../stores/UsersQueueStore';
 
+// for (let idx = 1; idx <= 20; ++idx) {
+//   RequestsStore.update((data) => {
+//     data.requests.push({
+//       id: idx,
+//       userId: Math.floor((Math.random() * (UsersStore.users.length - 1)) / 2) + 1,
+//       content: getRandomString(75, 400),
+//       timestamp: generateRandomRecentDate().toISOString(),
+//     });
+//   });
+// }
+
 export const App = () => {
   useEffect(() => {
     for (let idx = 1; idx <= 20; ++idx) {
       UsersStore.addUser({ id: idx, username: generateRandomUserName() });
-    }
-
-    for (let idx = 1; idx <= 20; ++idx) {
-      RequestsStore.update((data) => {
-        data.requests.push({
-          id: idx,
-          userId: Math.floor((Math.random() * (UsersStore.users.length - 1)) / 2) + 1,
-          content: getRandomString(75, 400),
-          timestamp: generateRandomRecentDate().toISOString(),
-        });
-      });
     }
 
     let idx = 1;

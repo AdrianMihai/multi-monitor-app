@@ -2,14 +2,15 @@ import React, { isValidElement, useCallback, useEffect, useState } from 'react';
 import { PanelComponentsContext } from './PanelComponentsContext';
 import { StyledPanelElementsContainer } from './StyledComponents';
 
-interface PanelProps {
+export interface PanelProps {
+  className?: string;
   activePanel?: string;
   onPanelChange?: (panelId: string) => void;
   navbar: React.JSX.Element;
   children: JSX.Element[] | JSX.Element;
 }
 
-const Panel = ({ activePanel: defaultActivePanel, onPanelChange, children, navbar }: PanelProps) => {
+const Panel = ({ className, activePanel: defaultActivePanel, onPanelChange, children, navbar }: PanelProps) => {
   const [activePanel, setActivePanel] = useState(defaultActivePanel || '');
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const Panel = ({ activePanel: defaultActivePanel, onPanelChange, children, navba
 
   return (
     <PanelComponentsContext.Provider value={{ activePanel, toggleActivePanel }}>
-      <StyledPanelElementsContainer>
+      <StyledPanelElementsContainer className={className}>
         {children}
         {!isValidElement(navbar) ? null : navbar}
       </StyledPanelElementsContainer>
