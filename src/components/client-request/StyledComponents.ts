@@ -36,4 +36,9 @@ export const StyledReplyButton = styled(SimpleButton)`
   flex-direction: row;
   justify-content: space-between;
   min-width: 70px;
+  
+  .svg-icon {
+    max-width: 1rem;
+    max-height: 1rem;
+  }
 `;

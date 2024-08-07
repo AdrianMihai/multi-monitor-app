@@ -1,6 +1,5 @@
 import React, { useContext, useLayoutEffect, useRef, useState } from 'react';
 import { StyledFormContainer, StyledInputRow, StyledResponseInput, StyledSendButton } from './StyledComponents';
-import Send from '../../../../assets/circle-chevron-right.svg';
 import { generateMarkup } from '../../../models/TextMarkup';
 import { MarkupToolsMenu } from './MarkupToolsMenu';
 import { useTextSelectionMemo } from '../../common/UseTextSelectionMemo';
@@ -9,6 +8,8 @@ import { DecoratedText, TextFormatting } from '../../../models/markdown/Markdown
 import { DecoratedTextCollection } from '../../../models/markdown/DecoratedTextCollection';
 import { useBeforeInputHandling } from './UseBeforeInputHandling';
 import { ClientRequestContext } from '../ClientRequestContext';
+import { SVGIcon } from '../../common/icon/SVGIcon';
+import { Icons } from '../../../resources/Icons';
 
 export const ResponseForm = () => {
   const responseInput = useRef<HTMLDivElement | null>(null);
@@ -72,7 +73,7 @@ export const ResponseForm = () => {
         <StyledSendButton
           onClick={() => sendReply(new DecoratedTextCollection(markupTextTokens).getCorrespondingMarkdown())}
         >
-          <Send />
+          <SVGIcon iconName={Icons.send} />
         </StyledSendButton>
       </StyledInputRow>
     </StyledFormContainer>

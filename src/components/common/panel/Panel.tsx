@@ -7,7 +7,7 @@ export interface PanelProps {
   activePanel?: string;
   onPanelChange?: (panelId: string) => void;
   navbar: React.JSX.Element;
-  children: JSX.Element[] | JSX.Element;
+  children: React.JSX.Element[] | React.JSX.Element;
 }
 
 const Panel = ({ className, activePanel: defaultActivePanel, onPanelChange, children, navbar }: PanelProps) => {
