@@ -1,8 +1,15 @@
 import React from 'react';
+import { flushSync } from 'react-dom';
 import { createRoot } from 'react-dom/client';
 import './types.d';
 import { DetachedPanelApp } from './components/DetachedPanelApp';
 
-const appRoot = createRoot(document.getElementById('root'));
+document.addEventListener('readystatechange', () => {
+  if (document.readyState !== 'complete') return;
 
-appRoot.render(<DetachedPanelApp />);
+  setTimeout(() => {
+    const appRoot = createRoot(document.getElementById('root'));
+
+    appRoot.render(<DetachedPanelApp />);
+  }, 1000);
+});

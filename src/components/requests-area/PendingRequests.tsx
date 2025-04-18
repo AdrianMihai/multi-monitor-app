@@ -11,9 +11,11 @@ export const PendingRequests = () => {
 
   const processedRequestsIds = useMemo(() => requestsList.map((value) => value.clientRequestId), [requestsList]);
 
+  const orderedRequests = useMemo(() => [...requests].reverse(), [requests.length]);
+
   return (
     <StyledPendingRequestsList>
-      {requests
+      {orderedRequests
         .filter((requestData) => !processedRequestsIds.includes(requestData.id))
         .map((requestData) => (
           <PendingClientRequest key={`pending-client-request-${requestData.id}`} requestData={requestData} />
