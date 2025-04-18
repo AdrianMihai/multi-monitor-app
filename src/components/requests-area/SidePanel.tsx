@@ -1,11 +1,9 @@
 import React from 'react';
-import Panel from '../common/panel/Panel';
 import PanelsNavbar from '../common/panel/navigation/PanelsNavbar';
 import { UsersQueueNavigationItem } from '../users-queue/UsersQueueNavigationItem';
 import { UsersQueuePanel } from '../users-queue/UsersQueuePanel';
 import { useStoreObserver } from '../common/UseStoreObserver';
 import PanelsStore, { PanelsData } from '../../stores/PanelsStore';
-import WindowRestoreSolid from '../../../assets/WindowRestoreSolid.svg';
 import { Conditional } from '../common/Conditional';
 import { NewWindow } from '../common/window/NewWindow';
 import { SimpleButton } from '../common/button/SimpleButton';
@@ -14,6 +12,8 @@ import { DetachedWindowNames } from '../../broadcast/Domain';
 import { ProcessedRequestsNavigationItem } from '../processed-requests/ProcessedRequestsNavigationItem';
 import { ProcessedRequestsPanel } from '../processed-requests/ProcessedRequestsPanel';
 import { StyledPanel } from './StyledComponents';
+import { SVGIcon } from '../common/icon/SVGIcon';
+import { Icons } from '../../resources/Icons';
 
 const onDetachedWindowTriggered = (ev) => {
   ev.nativeEvent.stopImmediatePropagation();
@@ -38,7 +38,7 @@ export const SidePanel = () => {
               endDecoration={
                 <Conditional when={!isDetached}>
                   <SimpleButton onClick={onDetachedWindowTriggered}>
-                    <WindowRestoreSolid />
+                    <SVGIcon iconName={Icons.newWindow} />
                   </SimpleButton>
                 </Conditional>
               }

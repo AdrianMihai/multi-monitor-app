@@ -10,8 +10,9 @@ import {
   StyledWaitingUsersList,
 } from './StyledComponents';
 import UsersStore from '../../stores/UsersStore';
-import AddPerson from '../../../assets/add-person.svg';
 import RequestsStore from '../../stores/RequestsStore';
+import { SVGIcon } from '../common/icon/SVGIcon';
+import { Icons } from '../../resources/Icons';
 
 export const WaitingUsersList = () => {
   const [queueData] = useStoreObserver<UsersQueueData>(UsersQueueStore);
@@ -27,7 +28,7 @@ export const WaitingUsersList = () => {
                 UsersQueueStore.removeForUser(entry.userId);
               }}
             >
-              <AddPerson />
+              <SVGIcon iconName={Icons.addPerson} />
             </StyledAddUserButton>
             <div>
               <StyledUsernameText>{UsersStore.findById(entry.userId)?.username}</StyledUsernameText>

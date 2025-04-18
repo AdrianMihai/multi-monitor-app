@@ -9,7 +9,7 @@ import {
 import { convertTextToMarkdown } from './TextToMarkdownAdapter';
 
 export class DecoratedTextCollection {
-  constructor(private textCollection: DecoratedText[]) {}
+  constructor(private textCollection: DecoratedText[]) { }
 
   findTextAt = (coordinate: number): TextSearchResult | void => {
     let textLength = 0;
@@ -108,14 +108,14 @@ export class DecoratedTextCollection {
       if (index === allTokens[0].index) {
         return [
           ...collection,
-          { ...allTokens[0].result, text: allTokens[0].result.text.slice(allTokens[0].localCursorPosition) },
+          { ...allTokens[0].result, text: allTokens[0].result.text.slice(0, allTokens[0].localCursorPosition) },
         ];
       }
 
       if (index === allTokens[allTokens.length - 1].index) {
         const token = allTokens[allTokens.length - 1];
 
-        return [...collection, { ...token.result, text: token.result.text.slice(0, token.localCursorPosition) }];
+        return [...collection, { ...token.result, text: token.result.text.slice(token.localCursorPosition) }];
       }
 
       return collection;
@@ -154,7 +154,7 @@ export class DecoratedTextCollection {
     const allTokens = this.collectTokensBetween(coordinates.start, coordinates.end);
 
     if (allTokens.length === 2 && allTokens[0].index === allTokens[1].index) {
-      this.textCollection = applyFormattingToText(
+      const formattedTokens = applyFormattingToText(
         allTokens[0].result,
         {
           start: allTokens[0].localCursorPosition,
@@ -162,6 +162,16 @@ export class DecoratedTextCollection {
         },
         textFormatting
       );
+
+      this.textCollection = this.textCollection.reduce((newCollection, currentValue, index) => {
+        if (index !== allTokens[0].index) {
+          newCollection.push(currentValue);
+        } else {
+          newCollection.push(...formattedTokens);
+        }
+
+        return newCollection;
+      }, [])
 
       return this.textCollection;
     }

@@ -1,12 +1,18 @@
 import { styled } from 'styled-components';
+import { SVGIcon } from '../../icon/SVGIcon';
 
 export const StyledNavItem = styled.li<{ $isActive: boolean }>`
+  max-width: 34px;
   height: 42px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   opacity: ${({ $isActive }) => ($isActive ? '1' : '0.6')};
+
+  .svg-icon {
+    width: 75% !important;
+  }
 `;
 
 export const StyledNavContainer = styled.nav`

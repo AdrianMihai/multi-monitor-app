@@ -9,10 +9,11 @@ import {
 } from './StyledComponents';
 import { ClientRequest } from '../../models/ClientRequest';
 import { useClientRequestData } from './UseClientRequestData';
-import Reply from '../../../assets/reply.svg';
 import { Conditional } from '../common/Conditional';
 import { ResponseForm } from './response-form/ResponseForm';
 import { ClientRequestContext } from './ClientRequestContext';
+import { SVGIcon } from '../common/icon/SVGIcon';
+import { Icons } from '../../resources/Icons';
 
 type PropTypes = {
   requestData: ClientRequest;
@@ -34,7 +35,7 @@ export const PendingClientRequest = ({ requestData }: PropTypes) => {
         <Conditional when={!isReplying}>
           <div>
             <StyledReplyButton onClick={startReplying}>
-              <Reply />
+              <SVGIcon iconName={Icons.replyArrow} />
               Reply
             </StyledReplyButton>
           </div>

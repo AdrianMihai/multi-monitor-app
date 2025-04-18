@@ -1,11 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { StyledFormCloseButton, StyledFormattingButton, StyledToolsMenu } from './StyledComponents';
-import Close from '../../../../assets/xmark.svg';
-import Bold from '../../../../assets/bold.svg';
-import Italic from '../../../../assets/italic.svg';
-import Strikethrough from '../../../../assets/strikethrough.svg';
 import { ClientRequestContext } from '../ClientRequestContext';
 import { TextFormatting } from '../../../models/markdown/MarkdownTypes';
+import { SVGIcon } from '../../common/icon/SVGIcon';
+import { Icons } from '../../../resources/Icons';
 
 export const MarkupToolsMenu = ({ onFormattingApplied }) => {
   const { stopReplying } = useContext(ClientRequestContext);
@@ -22,19 +20,19 @@ export const MarkupToolsMenu = ({ onFormattingApplied }) => {
   return (
     <StyledToolsMenu>
       <StyledFormCloseButton onClick={stopReplying}>
-        <Close />
+        <SVGIcon iconName={Icons.xmark} />
       </StyledFormCloseButton>
       <StyledFormattingButton disabled={!canApplyFormatting} onClick={() => onFormattingApplied(TextFormatting.bold)}>
-        <Bold />
+        <SVGIcon iconName={Icons.bold} />
       </StyledFormattingButton>
       <StyledFormattingButton disabled={!canApplyFormatting} onClick={() => onFormattingApplied(TextFormatting.italic)}>
-        <Italic />
+        <SVGIcon iconName={Icons.italic} />
       </StyledFormattingButton>
       <StyledFormattingButton
         disabled={!canApplyFormatting}
         onClick={() => onFormattingApplied(TextFormatting.strikethrough)}
       >
-        <Strikethrough />
+        <SVGIcon iconName={Icons.strikethrough} />
       </StyledFormattingButton>
     </StyledToolsMenu>
   );
