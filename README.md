@@ -23,9 +23,12 @@ to trigger the secondary window.
 
 ## Setting up the bundle
 
-The most notable aspects of the bundler's configuration is setting up the entrypoint for the secondary window, which in webpack this is rather straightforward to do, as shown below: 
+The most notable aspects of the bundler's configuration is setting up the entrypoint for the secondary window, which in webpack this is rather straightforward to do, as shown below:
+
 ![image](https://github.com/user-attachments/assets/2135e16c-4b26-4b68-a683-441d96172dd3)
+
 Basically, in the "entry" object another key-value pair is added to have the secondary window chunk generated. This new entrypoint needs to act as a standalone react application as it's going to be loaded in a entirely isolated context.
 Then, using the HtmlWebpackPlugin the react app can be injected in a new html page using the desired html template. Finally, to avoid hard-coding the path to the secondary window html page in the code, the value can be exposed as a global variable like so:
+
 ![image](https://github.com/user-attachments/assets/71b49598-4b9f-4559-ba63-2494b5d824b5)
 
