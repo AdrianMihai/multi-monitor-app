@@ -32,3 +32,19 @@ Then, using the HtmlWebpackPlugin the react app can be injected in a new html pa
 
 ![image](https://github.com/user-attachments/assets/71b49598-4b9f-4559-ba63-2494b5d824b5)
 
+## Handle detaching content to a pop-up window
+
+The general idea for achieving the detaching functionality in a declarative way is having the same component work regardless of the context, either the main window or the pop-up.
+In the provided example, the component responsible with rendering the side panel in the main window will also have the responsibility to open the new window as the user triggers it.
+Essentially, once the side panel's state switches to "detached", the component's instance in the main window will no longer render any elements and will only be concerned with the new window's events such as open, close etc. The instance in the secondary window should
+render elements as it normally would, with the obvious exception being that the option for detaching the side panel there should be disabled.
+
+As mentioned in the introduction, we will be looking at encapsulating the logic around calling window.open in a re-usable component. This, as soon as it's mounted, will trigger in a side-effect a new pop-up window that will load the 
+html document based on the path provided in the component's props: 
+
+![image](https://github.com/user-attachments/assets/fe1871b5-9dc4-4cf5-a2e2-79e2cb0364e9)
+
+If the window.open call did not return a reference to the new window, this indicates an error, most commonly caused by the pop-up permission being disabled, which can be signaled using a callback passed in the props.
+It is worth noting that the new window's name is relevant in order to distinguish the context that the component is rendered in. This is how the side-panel component renders the new window: 
+
+![image](https://github.com/user-attachments/assets/0380393f-539d-473f-acfa-457dee7c0985)
