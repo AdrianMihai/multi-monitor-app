@@ -10,12 +10,13 @@ export const StyledPanelItem = styled.div`
   padding: 7px;
 `;
 
-export const StyledPanelElementsContainer = styled.div`
+export const StyledPanelElementsContainer = styled.div<{ $isOpen: boolean }>`
   display: flex;
   flex-direction: row;
   height: 100%;
   max-width: 35%;
   border-top: 2px solid gray;
+  border-left: ${({ $isOpen }) => $isOpen ? '2px solid gray' : 'none'};
 `;
 
 export const StyledPanelTitleLabel = styled.h2`

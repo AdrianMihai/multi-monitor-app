@@ -32,9 +32,11 @@ const Panel = ({ className, activePanel: defaultActivePanel, onPanelChange, chil
     [activePanel, defaultActivePanel, onPanelChange]
   );
 
+  const isOpen = !!activePanel;
+
   return (
     <PanelComponentsContext.Provider value={{ activePanel, toggleActivePanel }}>
-      <StyledPanelElementsContainer className={className}>
+      <StyledPanelElementsContainer $isOpen={isOpen} className={className}>
         {children}
         {!isValidElement(navbar) ? null : navbar}
       </StyledPanelElementsContainer>
