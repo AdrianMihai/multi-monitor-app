@@ -1,4 +1,3 @@
-![Uploading Multi Monitor Preview.gif…]()
 # Building a multi-monitor web app using declarative APIs
 
 ## Introduction
@@ -13,7 +12,7 @@ to a different window that can be moved to a secondary monitor could prove usefu
 To illustrate a use-case for this, I created a web app using react and webpack which allows processing requests for some users that are initially placed in a queue.
 The queue of users as well as a history of the processed requests are placed in their own sections in a side-panel, which can be detached to a secondary window, allowing more space
 for the main window, which is where the list of the on-going requests and the editor to respond to these is displayed. This is how it looks like:
-![image](https://github.com/user-attachments/assets/0380393f-539d-473f-acfa-457dee7c0985)
+<img width="1905" height="900" alt="Multi Monitor Preview" src="https://github.com/user-attachments/assets/9cd97f5e-4af1-41c5-9f10-8e24f44a9424" />
 
 ## Technical overview
 
@@ -49,4 +48,5 @@ html document based on the path provided in the component's props:
 If the window.open call did not return a reference to the new window, this indicates an error, most commonly caused by the pop-up permission being disabled, which can be signaled using a callback passed in the props.
 It is worth noting that the new window's name is relevant in order to distinguish the context that the component is rendered in. This is how the side-panel component renders the new window: 
 
+![image](https://github.com/user-attachments/assets/0380393f-539d-473f-acfa-457dee7c0985)
 
