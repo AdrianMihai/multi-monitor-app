@@ -50,3 +50,8 @@ It is worth noting that the new window's name is relevant in order to distinguis
 
 ![image](https://github.com/user-attachments/assets/0380393f-539d-473f-acfa-457dee7c0985)
 
+## Cross-window communication
+
+For the two windows to be able to communicate with each other, the BroacastChannel api was used. This enables sending and receiving messages betweens different tabs or windows on the same domain.
+<img width="2720" height="1344" alt="broadcastchannel_api_flow" src="https://github.com/user-attachments/assets/dbeff44d-6834-4c53-b100-ee267ca1688d" />
+
