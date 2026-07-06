@@ -52,6 +52,17 @@ It is worth noting that the new window's name is relevant in order to distinguis
 
 ## Cross-window communication
 
-For the two windows to be able to communicate with each other, the BroacastChannel api was used. This enables sending and receiving messages betweens different tabs or windows on the same domain.
+For the two windows to be able to communicate with each other, the BroacastChannel api was used. This allows sending and receiving messages betweens different tabs or windows on the same domain.
+
 <img width="2720" height="1344" alt="broadcastchannel_api_flow" src="https://github.com/user-attachments/assets/dbeff44d-6834-4c53-b100-ee267ca1688d" />
+
+On top of that, I built a pub-sub mechanism for the communication to be more structured. This enables sending and subscribing to named commands on a brodcast channel instance.
+In the project, this abstraction can be found in the class [src/broadcast/BroadcastChannelWrapper.ts](https://github.com/AdrianMihai/multi-monitor-app/blob/master/src/broadcast/BroadcastChannelWrapper.ts)
+
+```
+{
+  commandName: string;
+  args: Map<any, any>
+}
+```
 
