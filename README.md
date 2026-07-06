@@ -66,3 +66,7 @@ In the project, this abstraction can be found in the class [src/broadcast/Broadc
 }
 ```
 
+You can see it in action in the data store implementation I provided ([src/stores/BaseStore.ts](https://github.com/AdrianMihai/multi-monitor-app/blob/master/src/stores/BaseStore.ts)), more specifically 
+in the startBroadcastTo method of this class, where broadcast is setup for the current store on the BroadcastChannelWrapper instance provided in the parameters. Essentially, this method does all the work necessary through
+the StoreBroadcastChain class ([src/stores/broadcast/StoreBroadcastChain.ts](https://github.com/AdrianMihai/multi-monitor-app/blob/master/src/stores/broadcast/StoreBroadcastChain.ts)) for a remote instance of the corresponding store to be synced with the instance in the window that initialized the remote one. The initializer also subscribes to data updates broadcasted from the other windows. The pub-sub mechanism built on top of the BroadcastChannel API is highly leveraged here by using specific commands to subscribe to remote updates and for remote instances to be able to perform an initial synchronization.
+
